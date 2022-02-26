@@ -4,11 +4,12 @@ const CountdownTimer = () => {
   const [remainingTime, setRemainingTime] = useState(10) //20mins in seconds
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setRemainingTime(remainingTime - 1)
-    }, 1000)
-
-    return () => clearInterval(intervalId)
+    if (remainingTime > 0) {
+      const intervalID = setInterval(() => {
+        setRemainingTime(remainingTime - 1)
+      }, 1000)
+      return () => clearInterval(intervalID)
+    }
   }, [remainingTime])
 
   const zeroAdded = (time) => {
@@ -23,9 +24,7 @@ const CountdownTimer = () => {
 
   return (
     <div>
-      <span>
-        {zeroAdded(remainingMinutes)} : {zeroAdded(remainingSeconds)}
-      </span>
+      {zeroAdded(remainingMinutes)} : {zeroAdded(remainingSeconds)}
     </div>
   )
 }
