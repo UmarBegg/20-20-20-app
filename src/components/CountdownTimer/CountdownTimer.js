@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 
-const CountdownTimer = () => {
-  const [remainingTime, setRemainingTime] = useState(10) //20mins in seconds
+const CountdownTimer = ({ defaultTime }) => {
+  const [remainingTime, setRemainingTime] = useState(defaultTime)
 
   useEffect(() => {
     if (remainingTime > 0) {
@@ -13,18 +13,19 @@ const CountdownTimer = () => {
   }, [remainingTime])
 
   const zeroAdded = (time) => {
-    if (time.length === 1) {
-      time = "0" + time
-    }
+    if (time.length === 1) time = "0" + time
     return time
   }
 
-  const remainingMinutes = Math.floor(remainingTime / 60).toString()
-  const remainingSeconds = (remainingTime - remainingMinutes * 60).toString()
+  const remainingMinutes = zeroAdded(Math.floor(remainingTime / 60).toString())
+
+  const remainingSeconds = zeroAdded(
+    (remainingTime - remainingMinutes * 60).toString()
+  )
 
   return (
     <div>
-      {zeroAdded(remainingMinutes)} : {zeroAdded(remainingSeconds)}
+      {remainingMinutes} : {remainingSeconds}
     </div>
   )
 }

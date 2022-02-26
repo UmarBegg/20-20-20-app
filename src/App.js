@@ -1,5 +1,8 @@
 import styled from "styled-components"
-import CountdownTimer from "./components/CountdownTimer/CountdownTimer"
+import BreakTime from "./components/BreakTime/BreakTime"
+import WorkingTime from "./components/WorkingTime/WorkingTime"
+import { useState } from "react"
+
 const MainBody = styled.div`
   width: 100vw;
   height: 100vh;
@@ -8,12 +11,16 @@ const MainBody = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `
 
 function App() {
+  const [isBreakTime, setIsBreakTime] = useState(false)
+
   return (
     <MainBody>
-      <CountdownTimer />
+      <WorkingTime defaultTime={1200} />
+      <BreakTime defaultTime={20} />
     </MainBody>
   )
 }
