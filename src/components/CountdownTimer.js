@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react"
+import WorkDisplay from "./WorkDisplay"
+import BreakDisplay from "./BreakDisplay"
 
-const CountdownTimer = ({ defaultTime }) => {
-  const [remainingTime, setRemainingTime] = useState(defaultTime)
+const CountdownTimer = () => {
+  const [remainingTime, setRemainingTime] = useState(1200)
+  const [isBreakTime, setIsBreakTime] = useState(false)
 
   useEffect(() => {
     if (remainingTime > 0) {
@@ -11,6 +14,16 @@ const CountdownTimer = ({ defaultTime }) => {
       return () => clearInterval(intervalID)
     }
   }, [remainingTime])
+
+  if (remainingTime === 0 && !isBreakTime) {
+    setIsBreakTime(true)
+    setRemainingTime(20)
+  }
+
+  if (remainingTime === 0 && isBreakTime) {
+    setIsBreakTime(false)
+    setRemainingTime(1200)
+  }
 
   const zeroAdded = (time) => {
     if (time.length === 1) time = "0" + time
@@ -25,7 +38,11 @@ const CountdownTimer = ({ defaultTime }) => {
 
   return (
     <div>
-      {remainingMinutes} : {remainingSeconds}
+      {isBreakTime && <BreakDisplay />}
+      {!isBreakTime && <WorkDisplay />}
+      <span>
+        {remainingMinutes} : {remainingSeconds}
+      </span>
     </div>
   )
 }
