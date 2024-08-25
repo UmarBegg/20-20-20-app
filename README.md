@@ -14,11 +14,7 @@ The **20-20-20 App** is a simple wellness tool designed to help you protect your
 
 - To run this project locally, follow these steps:
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-username/20-20-20-app.git
-   cd 20-20-20-app
-   ```
+1. **Clone the Repository**
 
 2. **Install Dependencies**: Ensure you have Node.js installed. Then, run:
    ```bash
