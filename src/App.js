@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import Setup from './components/Setup'
-import CountdownView from './components/CountdownView'
+import { useState } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+import Setup from './components/Setup/Setup'
+import CountdownView from './components/CountdownView/CountdownView'
+import { theme } from './styles/theme'
 
 const MainBody = styled.div`
   width: 100vw;
@@ -16,8 +17,8 @@ const MainBody = styled.div`
 
 function App() {
   const [isStarted, setIsStarted] = useState(false)
-  const [workDuration, setWorkDuration] = useState(20) // Default 20 minutes
-  const [breakDuration, setBreakDuration] = useState(20) // Default 20 seconds
+  const [workDuration, setWorkDuration] = useState(20)
+  const [breakDuration, setBreakDuration] = useState(20)
 
   const handleStart = (workDuration, breakDuration) => {
     setWorkDuration(workDuration)
@@ -26,21 +27,23 @@ function App() {
   }
 
   const handleReset = () => {
-    setIsStarted(false) // Go back to the setup screen
+    setIsStarted(false)
   }
 
   return (
-    <MainBody>
-      {!isStarted ? (
-        <Setup onStart={handleStart} />
-      ) : (
-        <CountdownView
-          workDuration={workDuration}
-          breakDuration={breakDuration}
-          onReset={handleReset}
-        />
-      )}
-    </MainBody>
+    <ThemeProvider theme={theme}>
+      <MainBody>
+        {!isStarted ? (
+          <Setup onStart={handleStart} />
+        ) : (
+          <CountdownView
+            workDuration={workDuration}
+            breakDuration={breakDuration}
+            onReset={handleReset}
+          />
+        )}
+      </MainBody>
+    </ThemeProvider>
   )
 }
 
