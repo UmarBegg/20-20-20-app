@@ -12,7 +12,7 @@ const Setup = ({ onStart }) => {
   const [breakDuration, setBreakDuration] = useState(20) // Default 20 seconds
 
   const handleWorkDurationChange = (e) => {
-    const value = Math.max(Number(e.target.value), 1) // Ensure minimum value of 1
+    const value = Math.max(Number(e.target.value), 0.1) // Ensure minimum value of 1
     setWorkDuration(value)
   }
 
