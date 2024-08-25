@@ -15,14 +15,17 @@ The **20-20-20 App** is a simple wellness tool designed to help you protect your
 - To run this project locally, follow these steps:
 
 1. **Clone the Repository**
+   ```
+   git clone https://github.com/UmarBegg/20-20-20-app.git
+   ```
 
-2. **Install Dependencies**: Ensure you have Node.js installed. Then, run:
+3. **Install Dependencies**: Ensure you have Node.js installed. Then, run:
    ```bash
    npm install
    ```
    
-3. **Start the Development Server**:
+4. **Start the Development Server**:
    ```bash
    npm start
    ```
-4. **Open the App**: Open your browser and navigate to http://localhost:3000 to see the app in action.
+5. **Open the App**: Open your browser and navigate to http://localhost:3000 to see the app in action.
