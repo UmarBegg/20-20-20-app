@@ -1,5 +1,7 @@
-import styled from "styled-components"
-import CountdownTimer from "./components/CountdownTimer"
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Setup from './components/Setup'
+import CountdownView from './components/CountdownView'
 
 const MainBody = styled.div`
   width: 100vw;
@@ -13,9 +15,31 @@ const MainBody = styled.div`
 `
 
 function App() {
+  const [isStarted, setIsStarted] = useState(false)
+  const [workDuration, setWorkDuration] = useState(20) // Default 20 minutes
+  const [breakDuration, setBreakDuration] = useState(20) // Default 20 seconds
+
+  const handleStart = (workDuration, breakDuration) => {
+    setWorkDuration(workDuration)
+    setBreakDuration(breakDuration)
+    setIsStarted(true)
+  }
+
+  const handleReset = () => {
+    setIsStarted(false) // Go back to the setup screen
+  }
+
   return (
     <MainBody>
-      <CountdownTimer />
+      {!isStarted ? (
+        <Setup onStart={handleStart} />
+      ) : (
+        <CountdownView
+          workDuration={workDuration}
+          breakDuration={breakDuration}
+          onReset={handleReset}
+        />
+      )}
     </MainBody>
   )
 }

@@ -2,19 +2,9 @@ import React, { useEffect, useState } from 'react'
 import WorkDisplay from './WorkDisplay'
 import BreakDisplay from './BreakDisplay'
 
-const CountdownTimer = ({ workDuration, breakDuration }) => {
-  const getInitialTime = () => {
-    const savedTime = parseInt(localStorage.getItem('remainingTime'), 10)
-    return isNaN(savedTime) ? workDuration * 60 : savedTime
-  }
-
-  const getInitialBreakStatus = () => {
-    const savedStatus = localStorage.getItem('isBreakTime')
-    return savedStatus === 'true' ? true : false
-  }
-
-  const [remainingTime, setRemainingTime] = useState(getInitialTime())
-  const [isBreakTime, setIsBreakTime] = useState(getInitialBreakStatus())
+const CountdownView = ({ workDuration, breakDuration, onReset }) => {
+  const [remainingTime, setRemainingTime] = useState(workDuration * 60) // Convert minutes to seconds
+  const [isBreakTime, setIsBreakTime] = useState(false)
 
   useEffect(() => {
     if (Notification.permission === 'default') {
@@ -23,7 +13,7 @@ const CountdownTimer = ({ workDuration, breakDuration }) => {
 
     const intervalID = setInterval(() => {
       setRemainingTime((prevTime) => {
-        const newTime = prevTime - 60
+        const newTime = prevTime - 1
         return newTime >= 0 ? newTime : 0 // Ensure time doesn't go negative
       })
     }, 1000)
@@ -40,9 +30,6 @@ const CountdownTimer = ({ workDuration, breakDuration }) => {
       setIsBreakTime(false)
       setRemainingTime(workDuration * 60) // Reset to custom work duration
     }
-
-    localStorage.setItem('remainingTime', remainingTime)
-    localStorage.setItem('isBreakTime', isBreakTime)
 
     return () => clearInterval(intervalID)
   }, [remainingTime, isBreakTime, workDuration, breakDuration])
@@ -69,8 +56,14 @@ const CountdownTimer = ({ workDuration, breakDuration }) => {
       <div style={{ fontSize: '48px', marginTop: '20px' }}>
         {formatTime(remainingTime)}
       </div>
+      <button
+        onClick={onReset}
+        style={{ marginTop: '20px', padding: '10px 20px' }}
+      >
+        Reset Timer
+      </button>
     </div>
   )
 }
 
-export default CountdownTimer
+export default CountdownView
