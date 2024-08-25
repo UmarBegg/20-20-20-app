@@ -22,7 +22,7 @@ const CountdownView = ({ workDuration, breakDuration, onReset }) => {
           onReset()
         }}
       >
-        Reset Timer
+        Reset
       </ResetButton>
     </CountdownContainer>
   )
